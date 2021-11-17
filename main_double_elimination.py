@@ -13,29 +13,50 @@ true_count = 0
 x_rating = []
 y_rank_difference = []
 in_order_rank_count_list = []
+R1_score_list = []
+R2_score_list = []
+win_rank_var_score_list = []
 
 for i in range(trial_num):
     double_el = double_elimination(rate_list, 64)
     rank = 1000  # 前のデータの順位を保存
     in_order_rank_count = -1  # 一番最初で0にするため
+    R1_score_sum = 0
+    R2_score_sum = 0
     for j, data in enumerate(double_el):
         if data['win_rank'] <= rank:
             in_order_rank_count += 1
         rate_list[63 - j]['win_rank_list'].append(data['win_rank'])
+        R1_score_sum += abs(data['rate_rank'] - data['win_rank'])
+        R2_score_sum += (data['rate_rank'] - data['win_rank']) ** 2
         rank = data['win_rank']
+    R1_score_list.append(R1_score_sum/64)
+    R2_score_list.append(R2_score_sum/64)
     in_order_rank_count_list.append(in_order_rank_count)
 
 for data in rate_list:
     x_rating.append(data['rate'])
     data['avg_rank'] = sum(data['win_rank_list']) / trial_num
     y_rank_difference.append((data['rate_rank'] - data['avg_rank']) ** 2)  # R^2誤差
+    win_rank_var_score_list.append(np.var(data['win_rank_list']))
     print(
         f"レーティング:{data['rate']} 平均順位{round(data['avg_rank'], 2)}位, 予想順位{data['rate_rank']}位, 順位の分散{np.var(data['win_rank_list'])}")
 
 for i in range(len(rate_list) - 1):
     if rate_list[i]['avg_rank'] < rate_list[i + 1]['avg_rank']:
         true_count += 1
-print("順番通りの割合:{}".format(true_count / 63))
+print(f"順番通りの割合:{format(true_count / 63)}")
+
+print("=========R1スコア==========")
+print_r1_score(R1_score_list, trial_num)
+
+print("=========R2スコア==========")
+print_r2_score(R2_score_list, trial_num)
+
+print("=========順位の分散==========")
+print_win_rank_var_score(win_rank_var_score_list, trial_num)
+
+
 # print(sum(in_order_rank_count_list) / trial_num)
 
 left = x_rating[::-1]

@@ -6,3 +6,4 @@ from .double_elimination import double_elimination
 from .swiss_draw import swiss_draw
 from .rating import rating, normalize_rating
 from .fix_rating import *
+from .tools import *
