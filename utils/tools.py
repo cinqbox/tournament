@@ -20,3 +20,10 @@ def print_win_rank_var_score(score_list, trial_num):
     print(f"ランク分散スコア最低値：{min(score_list)}")
     print(f"ランク分散スコア最高値：{max(score_list)}")
     print(f"ランク分散スコア分散値：{np.var(score_list)}")
+
+
+def print_only_score(score_list, trial_num):
+    print(sum(score_list) / trial_num)
+    print(min(score_list))
+    print(max(score_list))
+    print(np.var(score_list))

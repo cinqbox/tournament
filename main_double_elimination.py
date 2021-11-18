@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 # 結果確認用
 # rate_list = rating(6400, 0)
-rate_list = normalize_rating(1000, 100)
-trial_num = 10**3  # 10**4
+rate_list = normalize_rating(1500, 100)
+trial_num = 10**3*2  # 10**4
 true_count = 0
 x_rating = []
 y_rank_difference = []
@@ -32,7 +32,7 @@ for i in range(trial_num):
         rank = data['win_rank']
     R1_score_list.append(R1_score_sum/64)
     R2_score_list.append(R2_score_sum/64)
-    in_order_rank_count_list.append(in_order_rank_count)
+    # in_order_rank_count_list.append(in_order_rank_count)
 
 for data in rate_list:
     x_rating.append(data['rate'])
@@ -42,19 +42,22 @@ for data in rate_list:
     print(
         f"レーティング:{data['rate']} 平均順位{round(data['avg_rank'], 2)}位, 予想順位{data['rate_rank']}位, 順位の分散{np.var(data['win_rank_list'])}")
 
-for i in range(len(rate_list) - 1):
-    if rate_list[i]['avg_rank'] < rate_list[i + 1]['avg_rank']:
-        true_count += 1
-print(f"順番通りの割合:{format(true_count / 63)}")
+# for i in range(len(rate_list) - 1):
+#     if rate_list[i]['avg_rank'] < rate_list[i + 1]['avg_rank']:
+#         true_count += 1
+# print(f"順番通りの割合:{format(true_count / 63)}")
 
 print("=========R1スコア==========")
-print_r1_score(R1_score_list, trial_num)
+# print_r1_score(R1_score_list, trial_num)
+print_only_score(R1_score_list, trial_num)
 
 print("=========R2スコア==========")
-print_r2_score(R2_score_list, trial_num)
-
-print("=========順位の分散==========")
-print_win_rank_var_score(win_rank_var_score_list, trial_num)
+# print_r2_score(R2_score_list, trial_num)
+print_only_score(R2_score_list, trial_num)
+print("=========順位分散==========")
+# print_win_rank_var_score(win_rank_var_score_list, trial_num)
+# print(sum(in_order_rank_count_list) / len(in_order_rank_count_list) / 63)
+print_only_score(win_rank_var_score_list, trial_num)
 
 
 # print(sum(in_order_rank_count_list) / trial_num)
