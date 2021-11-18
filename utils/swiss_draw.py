@@ -36,7 +36,7 @@ def swiss_draw(rate_dic):
                     player2['matches'] += 1
                     player1['battled_users'].append(player2['rate_rank'])
                     player2['battled_users'].append(player1['rate_rank'])
-                    player2['won_users'].append(player1['rate_rank'])
+                    player1['won_users'].append(player2['rate_rank'])
             else:
                 flg = game_judge(player2['rate'], player1['rate'])
                 if flg:
@@ -61,31 +61,37 @@ def swiss_draw(rate_dic):
     # for i in win_sorted:
     #     print(i['rate_rank'])
 
-    for data in win_sorted:  # ソルコフ値, sb値
+    for data in win_sorted:  # ソルコフ値, sb値, ミディアム値
         sol_cnt = 0
-        sb_cnt = 0
+        sb_cnt = []
         for battled_user in data['battled_users']:
             sol_cnt += win_sorted[battled_user - 1]['win']
         for won_user in data['won_users']:
-            sb_cnt += win_sorted[won_user - 1]['win']
+            sb_cnt.append(win_sorted[won_user - 1]['win'])
+        # print(sb_cnt)
         data['solkov'] = sol_cnt
-        data['sb'] = sb_cnt
+        if not sb_cnt:
+            data['sb'] = 0
+            data['medium'] = 0
+        else:
+            data['sb'] = sum(sb_cnt)
+            data['medium'] = sum(sb_cnt) - max(sb_cnt) - min(sb_cnt)
 
     # 順位付け処理
-    win_sorted = sorted(win_sorted, key=lambda x: (x['win'], x['sb'], x['solkov']), reverse=True)
+    win_sorted = sorted(win_sorted, key=lambda x: (x['win'], x['sb'], x['solkov'], x['medium']), reverse=True)
     rank = 0
     tmp = 1
-    flg_win, flg_sb, flg_solkov = -1, -1, -1
+    flg_win, flg_sb, flg_solkov, flg_medium = -1, -1, -1, -1
     for i, data in enumerate(win_sorted):
-        if flg_win == data['win'] and flg_sb == data['sb'] and flg_solkov == data['solkov']:  # 同率で並んでいるとき
+        if flg_win == data['win'] and flg_sb == data['sb'] and flg_solkov == data['solkov'] and flg_medium == data['medium']:  # 同率で並んでいるとき
             tmp += 1
             data['win_rank'] = rank
-            flg_win, flg_sb, flg_solkov = data['win'], data['sb'], data['solkov']
+            flg_win, flg_sb, flg_solkov, flg_medium = data['win'], data['sb'], data['solkov'], data['medium']
         else: # 順位が異なる時
             rank += tmp
             data['win_rank'] = rank
             tmp = 1
-            flg_win, flg_sb, flg_solkov = data['win'], data['sb'], data['solkov']
+            flg_win, flg_sb, flg_solkov, flg_medium = data['win'], data['sb'], data['solkov'], data['medium']
 
     # pprint.pprint(win_sorted[:10])
 

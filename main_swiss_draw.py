@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 # 結果確認用
 # rate_list = rating(6400, 0)
 rate_list = normalize_rating(1500, 100)
-trial_num = 10**3*2
+# trial_num = 10**3*2
+trial_num = 1
 x_rating = []
 y_rank_difference = []
 in_order_rank_count_list = []
