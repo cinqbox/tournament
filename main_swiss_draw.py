@@ -6,10 +6,9 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # 結果確認用
-# rate_list = rating(6400, 0)
-rate_list = normalize_rating(1500, 100)
-# trial_num = 10**3*2
-trial_num = 1
+rate_list = rating(6400, 0)  # 1000~1945 15刻み
+# rate_list = normalize_rating(1500, 100)
+trial_num = 10**3*2
 x_rating = []
 y_rank_difference = []
 in_order_rank_count_list = []
@@ -60,7 +59,7 @@ print_only_score(R2_score_list, trial_num)
 print("=========順位分散==========")
 # print_win_rank_var_score(win_rank_var_score_list, trial_num)
 # print(sum(in_order_rank_count_list) / len(in_order_rank_count_list) / 63)
-print_only_score(win_rank_var_score_list, trial_num)
+print_only_score(win_rank_var_score_list, 64)
 
 # print(sum(in_order_rank_count_list) / trial_num)
 

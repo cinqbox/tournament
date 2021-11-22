@@ -68,7 +68,6 @@ def round_robin(rate_dic):
             data['win_rank'] = rank
             tmp = 1
             flg_win, flg_sb, flg_solkov, flg_medium = data['win'], data['sb'], data['solkov'], data['medium']
-        print(rank)
     # pprint.pprint(win_sorted[:10])
 
     return_data = sorted(win_sorted, key=lambda x: x['rate_rank'], reverse=True)

@@ -2,7 +2,6 @@ from .win_rate import upper_winrate
 import numpy as np
 
 
-
 def game_judge(upper_rate, lower_rate):
     """勝ち負け判定関数"""
     up_winrate = upper_winrate(upper_rate, lower_rate)

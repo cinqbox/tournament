@@ -6,10 +6,10 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # 結果確認用
-# rate_list = rating(6400, 0)
-rate_list = normalize_rating(1500, 100)
-# trial_num = 10**3*2
-trial_num = 1
+rate_list = rating(6400, 0)  # 1000~1945 15刻み
+# rate_list = normalize_rating(1500, 100)
+trial_num = 2000
+# trial_num = 1
 x_rating = []
 y_rank_difference = []
 in_order_rank_count_list = []
@@ -48,6 +48,7 @@ height = y_rank_difference[::-1]
 #     if rate_list[i]['avg_rank'] < rate_list[i + 1]['avg_rank']:
 #         true_count += 1
 
+print(f"win_rank_listとは：{win_rank_var_score_list}")
 # print(f"順番通りの割合:{format(true_count / 63)}")
 print("=========R1スコア==========")
 # print_r1_score(R1_score_list, trial_num)
@@ -59,7 +60,7 @@ print_only_score(R2_score_list, trial_num)
 print("=========順位分散==========")
 # print_win_rank_var_score(win_rank_var_score_list, trial_num)
 # print(sum(in_order_rank_count_list) / len(in_order_rank_count_list) / 63)
-print_only_score(win_rank_var_score_list, trial_num)
+print_only_score(win_rank_var_score_list, 64)
 
 # モデルでの平均順位と本来の順位の差の２乗
 plt.plot(left, height)
