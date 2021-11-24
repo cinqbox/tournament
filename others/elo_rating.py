@@ -11,5 +11,7 @@ for x in range(-1000, 1000):
     xl.append(x)
     yl.append(y)
 
+plt.title("EloRating WinRate")
+
 plt.plot(xl, yl)
 plt.show()

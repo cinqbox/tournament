@@ -6,8 +6,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # 結果確認用
-rate_list = rating(6400, 0)  # 1000~1945 15刻み
-# rate_list = normalize_rating(1500, 100)
+# rate_list = rating(6400, 0)  # 1000~1945 15刻み
+rate_list = normalize_rating(1500, 100)
 trial_num = 10**3*2
 x_rating = []
 y_rank_difference = []
@@ -20,11 +20,11 @@ win_rank_var_score_list = []
 for i in range(trial_num):
     swiss_dr = swiss_draw(rate_list)
     rank = 1000  # 前のデータの順位を保存
-    in_order_rank_count = -1  # 一番最初で0にするため
+    in_order_rank_count = 0  # 一番最初で0にするため
     R1_score_sum = 0
     R2_score_sum = 0
     for j, data in enumerate(swiss_dr):
-        if data['win_rank'] <= rank:
+        if data['rate_rank'] <= 16 and data['win_rank'] <= 16:
             in_order_rank_count += 1
         rate_list[63 - j]['win_rank_list'].append(data['win_rank'])
         R1_score_sum += abs(data['rate_rank'] - data['win_rank'])
@@ -32,7 +32,7 @@ for i in range(trial_num):
         rank = data['win_rank']
     R1_score_list.append(R1_score_sum/64)
     R2_score_list.append(R2_score_sum/64)
-    # in_order_rank_count_list.append(in_order_rank_count)
+    in_order_rank_count_list.append(in_order_rank_count)
 
 
 for data in rate_list:
@@ -58,10 +58,9 @@ print("=========R2スコア==========")
 print_only_score(R2_score_list, trial_num)
 print("=========順位分散==========")
 # print_win_rank_var_score(win_rank_var_score_list, trial_num)
-# print(sum(in_order_rank_count_list) / len(in_order_rank_count_list) / 63)
 print_only_score(win_rank_var_score_list, 64)
 
-# print(sum(in_order_rank_count_list) / trial_num)
+print(f'実順位がレーティング順位以上の割合（平均）：{sum(in_order_rank_count_list) / trial_num / 16}')
 
 
 left = x_rating[::-1]
