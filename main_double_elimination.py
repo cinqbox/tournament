@@ -6,8 +6,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # 結果確認用
-rate_list = rating(6400, 0)  # 1000~1945 15刻み
-# rate_list = normalize_rating(1500, 100)
+# rate_list = rating(6400, 0)  # 1000~1945 15刻み
+rate_list = normalize_rating(1500, 200)
 trial_num = 2000 # 10**4
 true_count = 0
 x_rating = []
@@ -35,9 +35,9 @@ for i in range(trial_num):
     in_order_rank_count_list.append(in_order_rank_count)
 
 for data in rate_list:
-    x_rating.append(data['rate'])
+    # x_rating.append(data['rate'])
     data['avg_rank'] = sum(data['win_rank_list']) / trial_num
-    y_rank_difference.append((data['rate_rank'] - data['avg_rank']) ** 2)  # R^2誤差
+    # y_rank_difference.append((data['rate_rank'] - data['avg_rank']) ** 2)  # R^2誤差
     win_rank_var_score_list.append(np.var(data['win_rank_list']))
     print(
         f"レーティング:{data['rate']} 平均順位{round(data['avg_rank'], 2)}位, 予想順位{data['rate_rank']}位, 順位の分散{np.var(data['win_rank_list'])}")
@@ -62,11 +62,11 @@ print_only_score(win_rank_var_score_list, 64)
 
 print(f'実順位がレーティング順位以上の割合（平均）：{sum(in_order_rank_count_list) / trial_num / 16}')
 
-left = x_rating[::-1]
-height = y_rank_difference[::-1]
-
-plt.title('double_elimination')
-plt.xlabel('Rating')
-plt.ylabel('R^2')
-plt.plot(left, height)
-plt.show()
+# left = x_rating[::-1]
+# height = y_rank_difference[::-1]
+#
+# plt.title('double_elimination')
+# plt.xlabel('Rating')
+# plt.ylabel('R^2')
+# plt.plot(left, height)
+# plt.show()

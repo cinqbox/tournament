@@ -7,9 +7,8 @@ import matplotlib.pyplot as plt
 
 # 結果確認用
 # rate_list = rating(6400, 0)  # 1000~1945 15刻み
-rate_list = normalize_rating(1500, 100)
+rate_list = normalize_rating(1500, 200)
 trial_num = 2000
-# trial_num = 1
 x_rating = []
 y_rank_difference = []
 in_order_rank_count_list = []
@@ -36,15 +35,15 @@ for i in range(trial_num):
     in_order_rank_count_list.append(in_order_rank_count)
 
 for data in rate_list:
-    x_rating.append(data['rate'])
+    # x_rating.append(data['rate'])
     data['avg_rank'] = sum(data['win_rank_list']) / trial_num
-    y_rank_difference.append((data['rate_rank'] - data['avg_rank']) ** 2)  # R^2誤差
+    # y_rank_difference.append((data['rate_rank'] - data['avg_rank']) ** 2)  # R^2誤差
     win_rank_var_score_list.append(np.var(data['win_rank_list']))
     print(
         f"レーティング:{data['rate']} 平均順位{round(data['avg_rank'], 2)}位, 予想順位{data['rate_rank']}位, 順位の分散{np.var(data['win_rank_list'])}")
 
-left = x_rating[::-1]
-height = y_rank_difference[::-1]
+# left = x_rating[::-1]
+# height = y_rank_difference[::-1]
 # for i in range(len(rate_list) - 1):
 #     if rate_list[i]['avg_rank'] < rate_list[i + 1]['avg_rank']:
 #         true_count += 1
@@ -65,5 +64,5 @@ print_only_score(win_rank_var_score_list, 64)
 print(f'実順位がレーティング順位以上の割合（平均）：{sum(in_order_rank_count_list) / trial_num / 16}')
 
 # モデルでの平均順位と本来の順位の差の２乗
-plt.plot(left, height)
-plt.show()
+# plt.plot(left, height)
+# plt.show()
