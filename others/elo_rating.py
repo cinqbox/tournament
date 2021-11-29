@@ -7,7 +7,7 @@ xl = []
 yl = []
 
 for x in range(-1000, 1000):
-    y = 100 - 100 / (10 ** (x / 400) + 1)
+    y = 1 - 1 / (10 ** (x / 400) + 1)
     xl.append(x)
     yl.append(y)
 
