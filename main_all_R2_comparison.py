@@ -9,8 +9,10 @@ import matplotlib.pyplot as plt
 for model in [round_robin, single_elimination, double_elimination, swiss_draw]:
     # R順位と実順位の差のR^2誤差まとめグラフ作成
     # rate_list = rating(6400, 0)  # 1000~1945 15刻みに誤差を加える
-    rate_list = normalize_rating(1500, 200)
-    trial_num = 200
+    # rate_list = normalize_rating(1500, 200)
+    rate_list = two_mountain_rating(1250, 1700, 100)
+
+    trial_num = 2000
     true_count = 0
     x_rating = []
     y_rank_difference = []

@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 # 結果確認用
 # rate_list = rating(6400, 0)  # 1000~1945 15刻み
 rate_list = normalize_rating(1500, 200)
+# rate_list = two_mountain_rating(1250, 1700, 100)
+
 trial_num = 2000
 x_rating = []
 y_rank_difference = []
